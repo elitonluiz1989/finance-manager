@@ -2,7 +2,7 @@ using FinanceManager.Domain.Users;
 
 namespace FinanceManager.Domain.Shared.Interfaces;
 
-public interface IRecorded
+public interface IAuditable
 {
     DateTime CreatedAt { get; set; }
     UserId CreatedBy { get; set; }
