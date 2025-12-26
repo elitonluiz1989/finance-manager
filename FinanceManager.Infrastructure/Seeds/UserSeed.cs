@@ -68,7 +68,7 @@ public static class UserSeed
         
         var user = await userManager.FindByNameAsync(username);
 
-        if (user is not null) return null;
+        if (user is not null) return user;
         
         user = new IdentityUser
         {
@@ -100,12 +100,11 @@ public static class UserSeed
 
         if (userExists) return;
         
-        var user = new User
-        {
-            Name = userConfig["Name"] ?? string.Empty,
-            Surname = userConfig["Surname"],
-            IdentityId = identityUser.Id,
-        };
+        var user = User.CreateUser(
+            name: userConfig["Name"] ?? string.Empty,
+            surname: userConfig["Surname"],
+            identityId: identityUser.Id
+        );
         
         userRepository.Create(user);
     }

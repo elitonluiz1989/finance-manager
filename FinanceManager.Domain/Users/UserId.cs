@@ -1,11 +1,18 @@
+using FinanceManager.Domain.Shared.Interfaces;
+
 namespace FinanceManager.Domain.Users;
 
-public record struct UserId
+public readonly record struct UserId : IEntityIdentifier<UserId>
 {
-    private Guid Value { get; }
+    public Guid Value { get; }
 
     private UserId(Guid value) => Value = value;
     
-    public static implicit operator UserId(Guid value) => new(value);
-    public static implicit operator Guid(UserId id) => id.Value;
+    public static UserId New() => new(Guid.NewGuid());
+    public static UserId Parse(Guid value) => new(value);
+    
+    public static explicit operator UserId(Guid value) => new(value);
+    public static explicit operator Guid(UserId id) => id.Value;
+    
+    public override string ToString() => Value.ToString();
 }

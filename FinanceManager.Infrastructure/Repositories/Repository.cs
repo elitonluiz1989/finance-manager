@@ -10,8 +10,16 @@ public abstract class Repository<TEntity, TId>(ApplicationDbContext context) : I
     where TEntity : Entity<TId>
     where TId: struct
 {
-    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate) =>
-        await context.Set<TEntity>().AnyAsync(predicate);
+    private DbSet<TEntity> DbSet => context.Set<TEntity>();
     
-    public void Create(TEntity entity) => context.Set<TEntity>().Add(entity);
+    public async Task<TProjection?> FindAsync<TProjection>(
+        TId id,
+        Expression<Func<TEntity, TProjection>> projection,
+        CancellationToken cancellationToken = default
+    ) =>  await DbSet.Where(p => p.Id.Equals(id)).Select(projection).FirstOrDefaultAsync(cancellationToken);
+
+    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default) =>
+        await DbSet.AnyAsync(predicate, cancellationToken);
+    
+    public void Create(TEntity entity) => DbSet.Add(entity);
 }
