@@ -1,4 +1,3 @@
-using FinanceManager.Domain.Shared.Errors;
 using FinanceManager.Domain.Shared.Interfaces;
 using FinanceManager.Domain.Shared.Results;
 using FinanceManager.Infrastructure.Contexts;
@@ -20,17 +19,23 @@ public sealed class UnitOfWork(ApplicationDbContext context) : IUnitOfWork
         {
             var result = await funcAsync.Invoke();
 
-            if (result.IsFailure) await transaction.RollbackAsync(cancellationToken);
+            if (result.IsFailure)
+            {
+                await transaction.RollbackAsync(cancellationToken);
 
+                return result;
+            }
+            
+            await context.SaveChangesAsync(cancellationToken);
             await transaction.CommitAsync(cancellationToken);
 
             return result;
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
             await transaction.RollbackAsync(cancellationToken);
             
-            return new Result<TValue>([ new Error(nameof(e), e.Message) ]);
+            return exception;
         }
     }
 }

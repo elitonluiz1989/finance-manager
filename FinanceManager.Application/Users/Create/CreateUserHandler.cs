@@ -21,21 +21,24 @@ public sealed class CreateUserHandler(
 
         if (validationResult.IsFailure) return validationResult;
 
-        return await unitOfWork.EncapsulateTransaction(async () =>
+        return await unitOfWork.EncapsulateTransaction(HandleCreateUserAsync(request), cancellationToken);
+    }
+
+    private Func<Task<Result<UserResponse>>> HandleCreateUserAsync(CreateUserCommand request)
+    {
+        return async () =>
         {
             var identityUserResult = await HandleIdentityUserAsync(request);
-            
+                
             if (identityUserResult.IsFailure) return Result<UserResponse>.Failure(identityUserResult.Errors);
-            
+                
             var domainUser = request.ToUser();
             domainUser.UpdateIdentityId(identityUserResult.Value!.Id);
-            
+                
             repository.Create(domainUser);
-
-            await unitOfWork.SaveChangesAsync(cancellationToken);
-            
+                
             return domainUser.ToUserResponse();
-        });
+        };
     }
 
     private async Task<Result<IdentityUser?>> HandleIdentityUserAsync(CreateUserCommand command)

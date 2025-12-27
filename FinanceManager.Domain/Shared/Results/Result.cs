@@ -22,12 +22,17 @@ public record Result<TValue>
     
     public Result() {}
     
-    public static Result<TValue> Success() => new();
+    public static Result<TValue> Success(TValue? value) => new(value);
+    public static Result<TValue> Success() => Success(default);
     
     public static Result<TValue> Failure(params Error[] errors) => new(errors);
     
     public static implicit operator Result<TValue>(TValue? value) => new(value);
+    public static implicit operator Result<TValue>(Error error) => new([error]);
     public static implicit operator Result<TValue>(Error[] errors) => new(errors);
+
+    public static implicit operator Result<TValue>(Exception exception) =>
+        new([new Error(nameof(exception), exception.Message)]);
     
     public void AddErrors(Error[] errors) => Errors = errors;
 }

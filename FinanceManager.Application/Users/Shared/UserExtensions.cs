@@ -10,7 +10,7 @@ public static class UserExtensions
     {
         public IdentityUser ToIdenityUser() => new()
         {
-            UserName = command.Username,
+            UserName = command.Email,
             Email = command.Email
         };
 

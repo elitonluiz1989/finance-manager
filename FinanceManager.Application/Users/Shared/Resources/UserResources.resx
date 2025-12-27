@@ -18,22 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="NameIsRequired" xml:space="preserve">
-        <value>Name is required</value>
+    <data name="Password" xml:space="preserve">
+        <value>Password</value>
     </data>
-    <data name="NameMaximumLength" xml:space="preserve">
-        <value>Name cannot exceed 50 characters"</value>
+    <data name="Name" xml:space="preserve">
+        <value>Name</value>
     </data>
-    <data name="SurnameMaximumLength" xml:space="preserve">
-        <value>Surname cannot exceed 100 characters</value>
-    </data>
-    <data name="UsernameRequired" xml:space="preserve">
-        <value>Username is required</value>
-    </data>
-    <data name="PasswordIsRequired" xml:space="preserve">
-        <value>Password is required</value>
-    </data>
-    <data name="EmailIsInvalid" xml:space="preserve">
-        <value>Email is invalid</value>
+    <data name="Surname" xml:space="preserve">
+        <value>Surname</value>
     </data>
 </root>

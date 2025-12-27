@@ -18,25 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="NameIsRequired" xml:space="preserve">
-        <value>Nome é obrigatório</value>
+    <data name="RefreshInvalidToken" xml:space="preserve">
+        <value>Token invalid or expired</value>
     </data>
-    <data name="NameMaximumLength" xml:space="preserve">
-        <value>Nome não pode ultrapassar 50 caracteres</value>
-    </data>
-    <data name="SurnameMaximumLength" xml:space="preserve">
-        <value>Sobrenome não pode ultrapassar 100 caracteres</value>
-    </data>
-    <data name="IdentityIdIsRequired" xml:space="preserve">
-        <value>Código do Identity é obrigatório</value>
-    </data>
-    <data name="UsernameRequired" xml:space="preserve">
-        <value>Nome de usuário é obrigatório</value>
-    </data>
-    <data name="PasswordIsRequired" xml:space="preserve">
-        <value>Senha obrigatória</value>
-    </data>
-    <data name="EmailIsInvalid" xml:space="preserve">
-        <value>Email inválido</value>
+    <data name="RefreshUserNotFound" xml:space="preserve">
+        <value>User not found</value>
     </data>
 </root>

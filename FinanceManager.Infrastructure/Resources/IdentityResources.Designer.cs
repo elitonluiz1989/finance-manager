@@ -7,28 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FinanceManager.Application.Users.Shared.Resources {
+namespace FinanceManager.Infrastructure.Resources {
     using System;
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UserResource {
+    public class IdentityResources {
         
         private static System.Resources.ResourceManager resourceMan;
         
         private static System.Globalization.CultureInfo resourceCulture;
         
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UserResource() {
+        internal IdentityResources() {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("FinanceManager.Application.Users.Shared.Resources.UserResource", typeof(UserResource).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("FinanceManager.Infrastructure.Resources.IdentityResources", typeof(IdentityResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -45,39 +45,15 @@ namespace FinanceManager.Application.Users.Shared.Resources {
             }
         }
         
-        internal static string NameIsRequired {
+        internal static string RefreshInvalidToken {
             get {
-                return ResourceManager.GetString("NameIsRequired", resourceCulture);
+                return ResourceManager.GetString("RefreshInvalidToken", resourceCulture);
             }
         }
         
-        internal static string NameMaximumLength {
+        internal static string RefreshUserNotFound {
             get {
-                return ResourceManager.GetString("NameMaximumLength", resourceCulture);
-            }
-        }
-        
-        internal static string SurnameMaximumLength {
-            get {
-                return ResourceManager.GetString("SurnameMaximumLength", resourceCulture);
-            }
-        }
-        
-        internal static string UsernameRequired {
-            get {
-                return ResourceManager.GetString("UsernameRequired", resourceCulture);
-            }
-        }
-        
-        internal static string PasswordIsRequired {
-            get {
-                return ResourceManager.GetString("PasswordIsRequired", resourceCulture);
-            }
-        }
-        
-        internal static string EmailIsInvalid {
-            get {
-                return ResourceManager.GetString("EmailIsInvalid", resourceCulture);
+                return ResourceManager.GetString("RefreshUserNotFound", resourceCulture);
             }
         }
     }

@@ -1,9 +1,10 @@
+using FinanceManager.Application.Auth;
 using FinanceManager.Domain.Shared.Interfaces;
 using FinanceManager.Domain.Users;
 using FinanceManager.Infrastructure.Contexts;
 using FinanceManager.Infrastructure.Repositories;
-using FinanceManager.Infrastructure.Seeds;
 using FinanceManager.Infrastructure.Services;
+using FinanceManager.Infrastructure.Services.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,24 +21,18 @@ public static class StartupExtensions
         services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IIdentityService, IdentityService>();
+        services.AddScoped<IdentityLocalizationService>();
 
         services.AddScoped<IUserRepository, UserRepository>();
     }
 
-    extension(IApplicationBuilder app)
+    public static void ApplyMigrations(this IApplicationBuilder app)
     {
-        public void ApplyMigrations()
-        {
-            using var scope = app.ApplicationServices.CreateScope();
-        
-            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        using var scope = app.ApplicationServices.CreateScope();
+    
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-            context.Database.Migrate();
-        }
-
-        public async Task ApplySeeds(IConfiguration configuration)
-        {
-            await UserSeed.SeedAsync(app.ApplicationServices, configuration);
-        }
+        context.Database.Migrate();
     }
 }

@@ -18,11 +18,17 @@ public static class UsersEndpoints
             return result.ToGetResults();
         });
 
-        group.MapPost("/", async (CreateUserCommand command, ICreateUserHandler handler, CancellationToken cancellationToken) =>
-        {
-            var result = await handler.HandleAsync(command, cancellationToken);
+        group.MapPost("/", CreateUserRoute);
+    }
 
-            return result.ToResults();
-        });
+    public static async Task<IResult> CreateUserRoute(
+        CreateUserCommand command,
+        ICreateUserHandler handler,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await handler.HandleAsync(command, cancellationToken);
+
+        return result.ToResults();
     }
 }

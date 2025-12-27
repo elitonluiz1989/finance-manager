@@ -14,21 +14,21 @@ namespace FinanceManager.Application.Users.Shared.Resources {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UserResource_pt_BR {
+    public class UserResources {
         
         private static System.Resources.ResourceManager resourceMan;
         
         private static System.Globalization.CultureInfo resourceCulture;
         
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UserResource_pt_BR() {
+        internal UserResources() {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("FinanceManager.Application.Users.Shared.Resources.UserResource_pt_BR", typeof(UserResource_pt_BR).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("FinanceManager.Application.Users.Shared.Resources.UserResources", typeof(UserResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -45,39 +45,21 @@ namespace FinanceManager.Application.Users.Shared.Resources {
             }
         }
         
-        internal static string NameIsRequired {
+        internal static string Password {
             get {
-                return ResourceManager.GetString("NameIsRequired", resourceCulture);
+                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         
-        internal static string NameMaximumLength {
+        internal static string Name {
             get {
-                return ResourceManager.GetString("NameMaximumLength", resourceCulture);
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
-        internal static string SurnameMaximumLength {
+        internal static string Surname {
             get {
-                return ResourceManager.GetString("SurnameMaximumLength", resourceCulture);
-            }
-        }
-        
-        internal static string UsernameRequired {
-            get {
-                return ResourceManager.GetString("UsernameRequired", resourceCulture);
-            }
-        }
-        
-        internal static string PasswordIsRequired {
-            get {
-                return ResourceManager.GetString("PasswordIsRequired", resourceCulture);
-            }
-        }
-        
-        internal static string EmailIsInvalid {
-            get {
-                return ResourceManager.GetString("EmailIsInvalid", resourceCulture);
+                return ResourceManager.GetString("Surname", resourceCulture);
             }
         }
     }
