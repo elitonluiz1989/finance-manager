@@ -1,0 +1,77 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
+        <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="10.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.1" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.1" />
+        <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="10.0.1" />
+        <PackageReference Include="Microsoft.NET.Sdk.WebAssembly.Pack" Version="10.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="wwwroot\appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Shared\Resources\SharedResources.resx">
+        <LastGenOutput>SharedResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Login\LoginResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>LoginResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FinanceManager.Application\FinanceManager.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Shared\Components\LanguageSelector\" />
+      <Folder Include="wwwroot\css\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Login\LoginResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>LoginResources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <Target Name="CompileSass" BeforeTargets="BeforeBuild">
+        <Message Importance="high" Text="SASS: Iniciando compilação de todos os arquivos SCSS..." />
+
+        <Exec Command="dart-sass .:./ --load-path=Shared/Styles --style=compressed --no-source-map" />
+
+        <Copy SourceFiles="Shared/Styles/app.css" DestinationFolder="wwwroot/css" SkipUnchangedFiles="true" />
+
+        <Delete Files="Shared/Styles/app.css" />
+
+        <Message Importance="high" Text="SASS: Compilação concluída." />
+    </Target>
+
+    <Target Name="CleanGeneratedCss" AfterTargets="Build">
+        <ItemGroup>
+            <FilesToClean Include="**/*.razor.css" />
+            <FilesToClean Include="**/*.css.map" />
+        </ItemGroup>
+
+        <Delete Files="@(FilesToClean)" />
+        
+        <Message Importance="high" Text="SASS: Limpeza de arquivos temporários (.css e .map) concluída." />
+    </Target>
+    
+</Project>

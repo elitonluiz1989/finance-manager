@@ -1,0 +1,13 @@
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.notification {
+  width: 100%;
+  z-index: 9999;
+
+  @include media-breakpoint-up(md) {
+    min-width: 20rem;
+    width: fit-content;
+  }
+}

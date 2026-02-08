@@ -7,3 +7,7 @@ riderModule.iml
 keys/
 
 *.db*
+*.css*
+/FinanceManager.PresentationShared/.sass-cache/*
+/FinanceManager.PresentationShared/wwwroot/css/*
+/FinanceManager.PresentationShared/Login/Login.razor.css

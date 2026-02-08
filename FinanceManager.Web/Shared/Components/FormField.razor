@@ -1,0 +1,35 @@
+@using System.Linq.Expressions
+
+<div class="mb-3">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label class="form-label @LabelStyles fw-semibold">@Label</label>
+    }
+
+    <InputText 
+        Type="@Type"
+        Value="@Value" 
+        ValueChanged="@ValueChanged" 
+        ValueExpression="@ValueExpression"
+        class="form-control form-control-lg mb-1" 
+        placeholder="@Placeholder" />
+    
+    <ValidationMessage For="@ValueExpression" class="text-danger small" />
+</div>
+
+@code {
+    [Parameter]
+    public string Type { get; set; } = "text";
+    [Parameter]
+    public string? Label { get; set; }
+    [Parameter]
+    public string? LabelStyles { get; set; } = "text-secondary";
+    [Parameter]
+    public string? Placeholder { get; set; }
+    [Parameter]
+    public string? Value { get; set; }
+    [Parameter]
+    public EventCallback<string?> ValueChanged { get; set; }
+    [Parameter]
+    public Expression<Func<string?>>? ValueExpression { get; set; }
+}

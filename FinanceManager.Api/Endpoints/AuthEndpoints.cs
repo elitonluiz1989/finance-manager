@@ -1,7 +1,7 @@
 using FinanceManager.Application.Auth;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using LoginRequest = FinanceManager.Application.Auth.LoginRequest;
 
 namespace FinanceManager.Api.Endpoints;
 

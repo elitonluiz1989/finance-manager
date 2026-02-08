@@ -1,0 +1,57 @@
+@page "/Login"
+@namespace FinanceManager.Web.Login
+@using FinanceManager.Application.Auth
+@using FinanceManager.Web.Shared.Components
+@using FinanceManager.Web.Shared.Layout
+@using FinanceManager.Web.Shared.Resources
+@using Microsoft.Extensions.Localization
+@inject LoginService LoginService;
+@inject NavigationManager NavigationManager;
+@inject IStringLocalizer<SharedResources> SharedStrings
+@inject IStringLocalizer<LoginResources> Strings
+@layout BaseLayout
+
+<header>
+    <div class="d-flex justify-content-end pe-2">
+        <LanguageSelector />
+    </div>
+        
+    <h1 class="fw-bold page-title text-center">@SharedStrings["AppName"]</h1>
+</header>
+
+<main class="container">
+    <div class="row justify-content-center">
+        <div class="col-11 col-sm-10 col-md-9 col-lg-8 col-xl-7 col-xxl-6">
+            <EditForm Model="@_model" OnValidSubmit="HandleLogin">
+                <DataAnnotationsValidator/>
+
+                <FormField Type="email" Label="@Strings["Email"]" LabelStyles="text-white" Placeholder="@Strings["EmailPlaceholder"]" @bind-Value="_model.Email"/>
+
+                <FormField Type="password" Label="@Strings["Password"]" LabelStyles="text-white" Placeholder="*******" @bind-Value="_model.Password"/>
+
+                <ButtonSpinner Type="submit" IsProcessing="_isProcessing" DefaultText="@Strings["Login"]" ProcessingText="@Strings["Authenticating"]"/>
+            </EditForm>
+        </div>
+
+    </div>
+</main>
+
+@code {
+    private readonly LoginModel _model = new();
+    private bool _isProcessing;
+
+    private async Task HandleLogin()
+    {
+        var request = (LoginRequest?)_model;
+
+        if (request is null) return;
+        
+        _isProcessing = true;
+
+        var success = await LoginService.LoginAsync(request);
+
+        if (!success) _isProcessing = false;
+        
+        NavigationManager.NavigateTo("/");
+    }
+}

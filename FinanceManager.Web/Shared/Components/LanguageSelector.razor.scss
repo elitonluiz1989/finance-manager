@@ -1,0 +1,13 @@
+@import "variables";
+
+.language-selector {
+  &-toggle::after {
+    color: white;
+  }
+  
+  &-menu {
+    min-width: fit-content;
+    right: 0;
+    background-color: darken($primary, 2%);
+  }
+}

@@ -1,0 +1,47 @@
+@inject NotificationService NotificationService
+@implements IDisposable
+
+@if (NotificationService.HasNotifications)
+{
+    <div class="notification position-fixed top-0 end-0 p-3">
+        @foreach(var notification in NotificationService.Notifications) {
+            <div class="alert alert-danger d-flex flex-row p-3 fade @(notification.IsVisible ? "show" : "")" role="alert">
+                <p class="mb-0 flex-fill">@notification.Message</p>
+
+                <button class="btn-close ms-2" type="button" @onclick="() => Close(notification)"></button>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    public void Dispose()
+    {
+        NotificationService.OnNotificationAddedAsync -= HandleAddNotification;
+        NotificationService.OnNotificationsChanged -= StateHasChanged;   
+    }
+
+    protected override void OnInitialized()
+    {
+        NotificationService.OnNotificationAddedAsync += HandleAddNotification;
+        NotificationService.OnNotificationsChanged += StateHasChanged;
+    }
+
+    private async Task HandleAddNotification(NotificationItem notification)
+    {
+        await Task.Delay(3000);
+
+        await Close(notification);
+    }
+
+    private async Task Close(NotificationItem notification)
+    {
+        notification.IsVisible =  false;
+        
+        StateHasChanged();
+
+        await Task.Delay(300);
+        
+        NotificationService.Remove(notification);
+    }
+}

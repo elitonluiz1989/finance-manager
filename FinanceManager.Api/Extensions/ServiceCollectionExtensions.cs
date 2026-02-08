@@ -1,3 +1,4 @@
+using System.Globalization;
 using FinanceManager.Api.JsonContexts;
 using FinanceManager.Api.Services;
 using FinanceManager.Infrastructure.Contexts;
@@ -9,6 +10,11 @@ namespace FinanceManager.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    private const string SupportedCulturesKey = "supportedCultures";
+    private const string PersistKeyFolderKey = "PersistKeyFolder";
+    private const string ApplicationNameKey = "ApplicationName";
+    private const string CorsOriginsKey = "CorsOrigins";
+    
     extension(IServiceCollection services)
     {
         public void AddApiServices()
@@ -16,11 +22,14 @@ public static class ServiceCollectionExtensions
             services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, CustomClaimsPrincipalFactory>();
         }
 
-        public void AddApiLocation()
+        public void AddApiLocation(IConfiguration configuration)
         {
             services.AddLocalization();
 
-            var supportedCultures = new[] { "pt-BR", "en-US" };
+            var supportedCultures = configuration.GetSection(SupportedCulturesKey).Get<string[]>();
+
+            if (supportedCultures is null || supportedCultures.Length == 0)
+                supportedCultures = [CultureInfo.CurrentCulture.Name];
         
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -30,7 +39,7 @@ public static class ServiceCollectionExtensions
             });
         }
 
-        public void AddApiAuthentication(IHostEnvironment environment)
+        public void AddApiAuthentication(IConfiguration configuration, IHostEnvironment environment)
         {
             services.ConfigureHttpJsonOptions(options =>  
                 options.SerializerOptions.TypeInfoResolverChain.Insert(0, UsersJsonContext.Default)
@@ -43,9 +52,13 @@ public static class ServiceCollectionExtensions
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
                 .AddSignInManager();
+
+            var persistKeyFolder = configuration.GetValue<string>(PersistKeyFolderKey) ?? string.Empty;
+            var appName = configuration.GetValue<string>(ApplicationNameKey) ?? string.Empty;
+            
             services.AddDataProtection()
-                .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(environment.ContentRootPath, "keys")))
-                .SetApplicationName("FinanceManager");
+                .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(environment.ContentRootPath, persistKeyFolder)))
+                .SetApplicationName(appName);
             services.AddOpenApi();
         }
 
@@ -54,6 +67,23 @@ public static class ServiceCollectionExtensions
             services.ConfigureHttpJsonOptions(options =>
             {
                 options.SerializerOptions.Converters.Add(new UserIdJsonConverter());
+            });
+        }
+
+        public void AddApiCors(IConfiguration configuration)
+        {
+            var origins = configuration.GetSection(CorsOriginsKey).Get<string[]>();
+            
+            if (origins is null || origins.Length == 0) return;
+            
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins(origins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             });
         }
     }

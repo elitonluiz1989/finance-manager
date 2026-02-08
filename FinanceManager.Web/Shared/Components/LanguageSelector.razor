@@ -1,0 +1,47 @@
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
+@using System.Globalization
+
+<div class="language-selector dropdown">
+    <button class="language-selector-toggle btn btn-sm dropdown-toggle" type="button" @onclick="Toggle">
+        @SelectedLanguage
+    </button>
+
+    <ul class="language-selector-menu dropdown-menu shadow @(_showMenu ? "show" : "")">
+        @foreach (var language in SupportedLanguages)
+        {
+            <li>
+                <button class="dropdown-item" @onclick="() => ChangeLanguage(language.Code)">@language.Flag</button>
+            </li>
+        }
+    </ul>
+</div>
+
+@code {
+    private static readonly LanguageOption[] SupportedLanguages =
+    [
+        new("pt-BR", "🇧🇷"),
+        new("en-US", "🇺🇸")
+    ];
+    private string SelectedLanguage => GetSelectedLanguage();
+    private bool _showMenu;
+
+    private void Toggle() => _showMenu = !_showMenu;
+
+    private static string GetSelectedLanguage()
+    {
+        var selectedCulture = SupportedLanguages
+            .FirstOrDefault(sl => sl.Code.Equals(CultureInfo.CurrentCulture.Name, StringComparison.InvariantCultureIgnoreCase))
+            ?? SupportedLanguages[0];
+
+        return selectedCulture.Flag;
+    }
+    
+    private async Task ChangeLanguage(string culture) {
+        await JsRuntime.InvokeVoidAsync("localStorage.setItem", "culture", culture);
+        
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+
+    private sealed record LanguageOption(string Code, string Flag);
+}
