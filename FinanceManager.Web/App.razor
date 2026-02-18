@@ -2,12 +2,14 @@
 @using FinanceManager.Web.Shared.Components
 @using FinanceManager.Web.Shared.Layout
 @using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<LoginResources> Strings
 
 <Router AppAssembly="@typeof(App).Assembly" NotFoundPage="typeof(NotFound.NotFound)">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
             <Authorizing>
-                <Loading Message="Autenticando..."></Loading>
+                <Loading Message="@Strings["authenticating"]"></Loading>
             </Authorizing>
             
             <NotAuthorized>

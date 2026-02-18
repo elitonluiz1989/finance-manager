@@ -1,21 +1,20 @@
 using System.Net.Http.Headers;
-using FinanceManager.Web.Shared.Interfaces;
+using FinanceManager.Application.Auth;
+using FinanceManager.Web.Shared.Constants;
+using FinanceManager.Web.Shared.Services;
 
 namespace FinanceManager.Web.Shared.Interceptors;
 
-public sealed class JwtInterceptor(IStorageService storageService): DelegatingHandler
+public sealed class JwtInterceptor(StorageService storageService): DelegatingHandler
 {
-    private const string AccessTokenKey = "accessToken";
-    private const string BearerScheme = "Bearer";
-    
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         try
         {
-            var accessToken = await storageService.GetAsync<string>(AccessTokenKey, cancellationToken);
+            var auth = await storageService.GetAsync<LoginResponse>(StorageKeyConst.Auth, cancellationToken);
 
-            if (!string.IsNullOrWhiteSpace(accessToken))
-                request.Headers.Authorization = new AuthenticationHeaderValue(BearerScheme, accessToken);
+            if (auth is not null && !string.IsNullOrWhiteSpace(auth.AccessToken))
+                request.Headers.Authorization = new AuthenticationHeaderValue(DefaultConst.BearerScheme, auth.AccessToken);
 
             return await base.SendAsync(request, cancellationToken);
         }

@@ -14,4 +14,13 @@
     <data name="AppName" xml:space="preserve">
         <value>Finance Manager</value>
     </data>
+    <data name="ApiDefaultError" xml:space="preserve">
+        <value>Error on API response</value>
+    </data>
+    <data name="ApiConnectionError" xml:space="preserve">
+        <value>It wa not possible to connect to server. Verify your internet</value>
+    </data>
+    <data name="ServerUnavailable" xml:space="preserve">
+        <value>Server unavailable</value>
+    </data>
 </root>

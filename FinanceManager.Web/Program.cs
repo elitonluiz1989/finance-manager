@@ -1,9 +1,7 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using FinanceManager.Web;
-using FinanceManager.Web.Extensions;
-using Microsoft.JSInterop;
+using FinanceManager.Web.Shared.Extensions;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -18,14 +16,6 @@ builder.Services.AddApiClient(builder.Configuration);
 
 var host = builder.Build();
 
-var result = await host.Services.GetRequiredService<IJSRuntime>().InvokeAsync<string>("localStorage.getItem", "culture");
-
-if (!string.IsNullOrEmpty(result))
-{
-    var culture = new CultureInfo(result);
-    
-    CultureInfo.DefaultThreadCurrentCulture = culture;
-    CultureInfo.DefaultThreadCurrentUICulture = culture;
-}
+await host.Services.LocalizationHandler();
 
 await host.RunAsync();

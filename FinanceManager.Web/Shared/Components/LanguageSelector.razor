@@ -23,7 +23,7 @@
         new("pt-BR", "🇧🇷"),
         new("en-US", "🇺🇸")
     ];
-    private string SelectedLanguage => GetSelectedLanguage();
+    private static string SelectedLanguage => GetSelectedLanguage();
     private bool _showMenu;
 
     private void Toggle() => _showMenu = !_showMenu;

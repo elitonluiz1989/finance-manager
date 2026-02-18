@@ -39,7 +39,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Shared\Components\LanguageSelector\" />
       <Folder Include="wwwroot\css\" />
     </ItemGroup>
 

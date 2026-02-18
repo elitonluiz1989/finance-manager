@@ -4,6 +4,7 @@
 @using FinanceManager.Web.Shared.Components
 @using FinanceManager.Web.Shared.Layout
 @using FinanceManager.Web.Shared.Resources
+@using FinanceManager.Web.Shared.Types
 @using Microsoft.Extensions.Localization
 @inject LoginService LoginService;
 @inject NavigationManager NavigationManager;
@@ -25,11 +26,11 @@
             <EditForm Model="@_model" OnValidSubmit="HandleLogin">
                 <DataAnnotationsValidator/>
 
-                <FormField Type="email" Label="@Strings["Email"]" LabelStyles="text-white" Placeholder="@Strings["EmailPlaceholder"]" @bind-Value="_model.Email"/>
+                <FormField Type="InputType.Text" Label="@Strings["Email"]" LabelStyles="text-white" Placeholder="@Strings["EmailPlaceholder"]" @bind-Value="_model.Email"/>
 
-                <FormField Type="password" Label="@Strings["Password"]" LabelStyles="text-white" Placeholder="*******" @bind-Value="_model.Password"/>
+                <FormField Type="InputType.Password" Label="@Strings["Password"]" LabelStyles="text-white" Placeholder="*******" @bind-Value="_model.Password"/>
 
-                <ButtonSpinner Type="submit" IsProcessing="_isProcessing" DefaultText="@Strings["Login"]" ProcessingText="@Strings["Authenticating"]"/>
+                <ButtonSpinner Type="ButtonType.Submit" IsProcessing="_isProcessing" DefaultText="@Strings["Login"]" ProcessingText="@Strings["Authenticating"]"/>
             </EditForm>
         </div>
 

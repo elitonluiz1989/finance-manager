@@ -1,8 +1,10 @@
 using FinanceManager.Web.Shared.Components.Notification;
+using FinanceManager.Web.Shared.Resources;
+using Microsoft.Extensions.Localization;
 
 namespace FinanceManager.Web.Shared.Interceptors;
 
-public class ExceptionInterceptor(NotificationService notificationService) : DelegatingHandler
+public class ExceptionInterceptor(NotificationService notificationService, IStringLocalizer<SharedResources> localizer) : DelegatingHandler
 {
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
@@ -11,17 +13,17 @@ public class ExceptionInterceptor(NotificationService notificationService) : Del
             var response = await base.SendAsync(request, cancellationToken);
 
             if (!response.IsSuccessStatusCode)
-                notificationService.Add("Erro na API");
+                notificationService.Add(localizer["ApiDefaultError"]);
             
             return response;
         }
         catch (Exception)
         {
-            notificationService.Add("Não foi possível conectar ao servidor. Verifique sua internet.");
+            notificationService.Add(localizer["ApiConnectionError"]);
         
             return new HttpResponseMessage(System.Net.HttpStatusCode.ServiceUnavailable)
             {
-                Content = new StringContent("Servidor Indisponível")
+                Content = new StringContent(localizer["ServerUnavailable"])
             };
         }
     }

@@ -21,4 +21,13 @@
     <data name="AppName" xml:space="preserve">
         <value>Gerenciador Financeiro</value>
     </data>
+    <data name="ApiDefaultError" xml:space="preserve">
+        <value>Erro na resposta da API</value>
+    </data>
+    <data name="ApiConnectionError" xml:space="preserve">
+        <value>Não foi possível conectar ao servidor. Verifique sua internet</value>
+    </data>
+    <data name="ServerUnavailable" xml:space="preserve">
+        <value>Servidor Indisponível</value>
+    </data>
 </root>
