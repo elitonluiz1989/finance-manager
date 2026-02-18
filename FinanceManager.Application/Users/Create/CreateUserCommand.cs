@@ -3,7 +3,7 @@ using FinanceManager.Application.Users.Shared;
 
 namespace FinanceManager.Application.Users.Create;
 
-public class CreateUserCommand : ICommand<UserResponse>
+public sealed record CreateUserCommand : ICommand<UserResponse>
 {
     public string Email { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;

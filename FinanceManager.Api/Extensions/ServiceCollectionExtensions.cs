@@ -2,7 +2,8 @@ using System.Globalization;
 using FinanceManager.Api.JsonContexts;
 using FinanceManager.Api.Services;
 using FinanceManager.Infrastructure.Contexts;
-using FinanceManager.Infrastructure.Converters;
+using FinanceManager.Infrastructure.Converters.Accounts;
+using FinanceManager.Infrastructure.Converters.Users;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 
@@ -67,6 +68,7 @@ public static class ServiceCollectionExtensions
             services.ConfigureHttpJsonOptions(options =>
             {
                 options.SerializerOptions.Converters.Add(new UserIdJsonConverter());
+                options.SerializerOptions.Converters.Add(new AccountIdJsonConverter());
             });
         }
 

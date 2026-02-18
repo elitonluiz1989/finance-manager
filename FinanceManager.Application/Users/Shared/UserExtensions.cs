@@ -8,7 +8,7 @@ public static class UserExtensions
 {
     extension(CreateUserCommand command)
     {
-        public IdentityUser ToIdenityUser() => new()
+        public IdentityUser ToIdentityUser() => new()
         {
             UserName = command.Email,
             Email = command.Email

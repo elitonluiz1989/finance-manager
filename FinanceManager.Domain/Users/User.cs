@@ -1,3 +1,4 @@
+using FinanceManager.Domain.Accounts;
 using FinanceManager.Domain.Shared;
 using FinanceManager.Domain.Shared.Interfaces;
 
@@ -11,6 +12,8 @@ public sealed class User : Entity<UserId>, ISoftDelete
     public DateTime? DeletedAt { get; set; }
     public UserId? DeletedBy { get; set; }
 
+    public ICollection<Account> Accounts { get; set; } = [];
+
     private User(string name, string? surname, string identityId)
     {
         Id = UserId.New();
@@ -19,9 +22,9 @@ public sealed class User : Entity<UserId>, ISoftDelete
         IdentityId = identityId;
     }
     
-    public static User CreateUser(string name, string? surname, string identityId) => new(name, surname, identityId);
-    
     public static User CreateUser(string name, string? surname) => CreateUser(name, surname, string.Empty);
     
     public void UpdateIdentityId(string identityId) => IdentityId = identityId;
+
+    private static User CreateUser(string name, string? surname, string identityId) => new(name, surname, identityId);
 }

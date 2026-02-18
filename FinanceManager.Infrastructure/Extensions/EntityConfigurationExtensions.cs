@@ -1,6 +1,6 @@
 using FinanceManager.Domain.Shared;
 using FinanceManager.Domain.Shared.Interfaces;
-using FinanceManager.Infrastructure.Converters;
+using FinanceManager.Infrastructure.Converters.Users;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -23,8 +23,10 @@ public static class EntityConfigurationExtensions
         where TEntity : Entity<TId>, IAuditable
         where TId : struct
     {
-        builder.Property(x => x.CreatedAt).HasConversion<UserIdConverter>().IsRequired();
-        builder.Property(x => x.UpdatedAt).HasConversion<UserIdConverter>();
+        builder.Property(p => p.CreatedAt);
+        builder.Property(x => x.CreatedBy).HasConversion<UserIdConverter>().IsRequired();
+        builder.Property(p => p.UpdatedAt);
+        builder.Property(x => x.UpdatedBy).HasConversion<UserIdConverter>();
     }
     
     public static void ConfigureSoftDeleteFields<TEntity, TId>(this EntityTypeBuilder<TEntity> builder)

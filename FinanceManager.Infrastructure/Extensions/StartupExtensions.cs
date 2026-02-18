@@ -1,4 +1,5 @@
 using FinanceManager.Application.Auth;
+using FinanceManager.Domain.Accounts;
 using FinanceManager.Domain.Shared.Interfaces;
 using FinanceManager.Domain.Users;
 using FinanceManager.Infrastructure.Contexts;
@@ -16,7 +17,7 @@ public static class StartupExtensions
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("ApplicationConnection");
+        var connectionString = configuration.GetConnectionString(Constants.DefaultConst.ApplicationConnection);
         
         services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
 
@@ -25,6 +26,7 @@ public static class StartupExtensions
         services.AddScoped<IdentityLocalizationService>();
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>();
     }
 
     public static void ApplyMigrations(this IApplicationBuilder app)

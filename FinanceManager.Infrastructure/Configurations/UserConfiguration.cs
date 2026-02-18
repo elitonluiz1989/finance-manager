@@ -1,6 +1,7 @@
 using FinanceManager.Domain.Users;
 using FinanceManager.Infrastructure.Comparers;
-using FinanceManager.Infrastructure.Converters;
+using FinanceManager.Infrastructure.Constants;
+using FinanceManager.Infrastructure.Converters.Users;
 using FinanceManager.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FinanceManager.Infrastructure.Configurations;
 
-public sealed class UserConfigurationExtensions : IEntityTypeConfiguration<User>
+public sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("Users");
+        builder.ToTable(ConfigurationsConst.Users);
         
         builder.ConfigureEntityIdentifier<User, UserId, UserIdConverter, UserIdComparer>();
         

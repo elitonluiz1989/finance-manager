@@ -11,9 +11,7 @@ public sealed class CreateUserHandler(
     ICreateUserValidator validator,
     UserManager<IdentityUser> userManager,
     IUserRepository repository,
-    IUnitOfWork unitOfWork
-)
-    : ICreateUserHandler
+    IUnitOfWork unitOfWork) : ICreateUserHandler
 {
     public async Task<Result<UserResponse>> HandleAsync(CreateUserCommand request, CancellationToken cancellationToken = default)
     {
@@ -43,7 +41,7 @@ public sealed class CreateUserHandler(
 
     private async Task<Result<IdentityUser?>> HandleIdentityUserAsync(CreateUserCommand command)
     {
-        var identityUser = command.ToIdenityUser();
+        var identityUser = command.ToIdentityUser();
         
         var result = await userManager.CreateAsync(identityUser, command.Password);
         
