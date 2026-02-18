@@ -30,4 +30,7 @@
     <data name="ServerUnavailable" xml:space="preserve">
         <value>Servidor Indisponível</value>
     </data>
+    <data name="AuthenticationFailed" xml:space="preserve">
+        <value>Falha na autenticação. Usuário ou senha inválidos</value>
+    </data>
 </root>

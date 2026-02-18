@@ -10,11 +10,13 @@ public sealed class StorageService(IJSRuntime js)
     {
         try
         {
-            var json = await js.InvokeAsync<string?>(LocalStorageConst.GetItem, cancellationToken, key, cancellationToken);
+            var json = await js.InvokeAsync<string?>(LocalStorageConst.GetItem, cancellationToken, key);
+            
+            if (string.IsNullOrWhiteSpace(json)) return default;
 
-            return string.IsNullOrWhiteSpace(json)
-                ? default
-                : JsonSerializer.Deserialize<TValue>(json);
+            if (typeof(TValue) == typeof(string)) return (TValue?)(object)json;
+
+            return JsonSerializer.Deserialize<TValue>(json);
         } catch
         {
             return default;

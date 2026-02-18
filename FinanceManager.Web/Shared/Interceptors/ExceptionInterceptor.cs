@@ -1,3 +1,4 @@
+using System.Net;
 using FinanceManager.Web.Shared.Components.Notification;
 using FinanceManager.Web.Shared.Resources;
 using Microsoft.Extensions.Localization;
@@ -11,9 +12,14 @@ public class ExceptionInterceptor(NotificationService notificationService, IStri
         try
         {
             var response = await base.SendAsync(request, cancellationToken);
+            
+            if (response.IsSuccessStatusCode) return response;
 
-            if (!response.IsSuccessStatusCode)
-                notificationService.Add(localizer["ApiDefaultError"]);
+            var errorMessage = response.StatusCode == HttpStatusCode.Unauthorized
+                ? localizer["AuthenticationFailed"]
+                : localizer["ApiDefaultError"];
+                
+            notificationService.Add(errorMessage);
             
             return response;
         }
@@ -21,7 +27,7 @@ public class ExceptionInterceptor(NotificationService notificationService, IStri
         {
             notificationService.Add(localizer["ApiConnectionError"]);
         
-            return new HttpResponseMessage(System.Net.HttpStatusCode.ServiceUnavailable)
+            return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable)
             {
                 Content = new StringContent(localizer["ServerUnavailable"])
             };

@@ -16,12 +16,13 @@ public static class ServiceCollectionExtensions
         public void AddWebServices()
         {
             services.AddSingleton<NotificationService>();
-            services.AddScoped<AuthenticationStateProvider, AppAuthenticationStateProvider>();
             services.AddScoped<StorageService>();
             services.AddScoped<LoginService>();
             services.AddScoped<LogoutService>();
             services.AddScoped<ExceptionInterceptor>();
             services.AddScoped<JwtInterceptor>();
+            services.AddScoped<AppAuthenticationStateProvider>();
+            services.AddScoped<AuthenticationStateProvider>(provider => provider.GetService<AppAuthenticationStateProvider>()!);
         }
 
         public void AddApiClient(IConfiguration configuration)
