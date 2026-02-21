@@ -23,7 +23,7 @@ public static class StartupExtensions
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IIdentityService, IdentityService>();
-        services.AddScoped<IdentityLocalizationService>();
+        services.AddScoped<IdentityLocalizer>();
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IAccountRepository, AccountRepository>();

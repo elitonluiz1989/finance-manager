@@ -8,4 +8,5 @@ internal static class ValidationConst
     internal const string NameMaximumLength = "NameMaximumLength";
     internal const string PasswordIsRequired = "PasswordIsRequired";
     internal const string SurnameMaximumLength = "SurnameMaximumLength";
+    internal const string UserIdIsRequired = "UserIdIsRequired";
 }

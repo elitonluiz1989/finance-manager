@@ -7,28 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FinanceManager.Application.Users.Shared.Resources {
+namespace FinanceManager.Application.Shared.Resources {
     using System;
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class UserResources {
+    public class SharedResources {
         
         private static System.Resources.ResourceManager resourceMan;
         
         private static System.Globalization.CultureInfo resourceCulture;
         
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UserResources() {
+        public SharedResources() {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("FinanceManager.Application.Users.Shared.Resources.UserResources", typeof(UserResources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("FinanceManager.Application.Shared.Resources.SharedResources", typeof(SharedResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -45,15 +45,21 @@ namespace FinanceManager.Application.Users.Shared.Resources {
             }
         }
         
-        public static string Password {
+        public static string Name {
             get {
-                return ResourceManager.GetString("Password", resourceCulture);
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
-        public static string Surname {
+        public static string Type {
             get {
-                return ResourceManager.GetString("Surname", resourceCulture);
+                return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        public static string UserId {
+            get {
+                return ResourceManager.GetString("UserId", resourceCulture);
             }
         }
     }

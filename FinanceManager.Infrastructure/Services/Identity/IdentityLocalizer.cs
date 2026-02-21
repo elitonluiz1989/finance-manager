@@ -1,4 +1,4 @@
-using FinanceManager.Application.Shared;
+using FinanceManager.Application.Shared.Services;
 using FinanceManager.Domain.Shared.Errors;
 using FinanceManager.Infrastructure.Constants;
 using FinanceManager.Infrastructure.Resources;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 
 namespace FinanceManager.Infrastructure.Services.Identity;
 
-public sealed class IdentityLocalizationService(IStringLocalizer<IdentityResources> localizer) : LocalizationService<IdentityResources>(localizer)
+public sealed class IdentityLocalizer(IStringLocalizer<IdentityResources> localizer) : BaseLocalizer<IdentityResources>(localizer)
 {
     public Error RefreshInvalidToken =>
         new(IdentityConst.RefreshInvalidTokenError, GetString(IdentityResources.RefreshInvalidToken));

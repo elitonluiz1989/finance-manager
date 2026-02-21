@@ -11,7 +11,7 @@ public sealed class IdentityService(
     IOptionsMonitor<BearerTokenOptions> options,
     UserManager<IdentityUser> userManager,
     SignInManager<IdentityUser> signInManager,
-    IdentityLocalizationService localization) : IIdentityService
+    IdentityLocalizer localization) : IIdentityService
 {
     public async Task<Result<ClaimsPrincipal>> RefreshTokenAsync(string refreshToken)
     {

@@ -1,9 +1,9 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Localization;
 
-namespace FinanceManager.Application.Shared;
+namespace FinanceManager.Application.Shared.Services;
 
-public abstract class LocalizationService<TResources>(IStringLocalizer<TResources> localizer)
+public abstract class BaseLocalizer<TResources>(IStringLocalizer<TResources> localizer)
 {
     protected string GetString(object? value, [CallerArgumentExpression("value")] string expression = "")
     {

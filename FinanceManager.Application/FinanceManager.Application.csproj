@@ -18,19 +18,4 @@
     <ProjectReference Include="..\FinanceManager.Domain\FinanceManager.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Users\Shared\Resources\UserResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>UserResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Users\Shared\Resources\UserResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UserResources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
 </Project>

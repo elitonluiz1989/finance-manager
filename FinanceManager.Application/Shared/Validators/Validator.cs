@@ -5,7 +5,7 @@ namespace FinanceManager.Application.Shared.Validators;
 
 public abstract class Validator<TRequest, TResponse> : AbstractValidator<TRequest>, IValidator<TRequest, TResponse>
 {
-    protected string RequestName = string.Empty;
+    private string? _requestName;
 
     public new Result<TResponse> Validate(TRequest request)
     {
@@ -22,12 +22,12 @@ public abstract class Validator<TRequest, TResponse> : AbstractValidator<TReques
         return result;
     }
 
-    protected abstract void SetRequestName();
+    protected abstract string SetRequestName();
 
     protected string CreateErrorCode(string error)
     {
-        if (string.IsNullOrWhiteSpace(RequestName)) SetRequestName();
+        if (string.IsNullOrWhiteSpace(_requestName))  _requestName = SetRequestName();
         
-        return $"{RequestName}.Validation.{error}";
+        return $"{_requestName}.Validation.{error}";
     }
 }
