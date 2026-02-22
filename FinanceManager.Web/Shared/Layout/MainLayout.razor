@@ -1,9 +1,10 @@
 ﻿@using FinanceManager.Web.Shared.Components
+@using FinanceManager.Web.Shared.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> Strings
 @inherits BaseLayout
 
-<header>
-    <NavMenu></NavMenu>
-</header>
+<AppHeader></AppHeader>
 
 <main>
     @Body

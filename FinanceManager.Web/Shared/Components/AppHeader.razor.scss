@@ -1,0 +1,13 @@
+@use "functions" as funcs;
+
+.navbar-nav {  
+  background-color: darken(funcs.color_theme("primary"), 3.5%);
+}
+
+::deep .header-nav-item .nav-link {
+  color: white !important;
+
+  &.active {
+    font-weight: bolder;
+  }
+}

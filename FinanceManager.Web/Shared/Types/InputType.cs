@@ -1,28 +1,17 @@
 namespace FinanceManager.Web.Shared.Types;
 
-public readonly record struct InputType
+public record InputType
 {
-    public static InputType Password => Parse(PasswordValue);
-    public static InputType Text => Parse(TextValue);
-    public string Value { get; }
+    public static InputType Password => new(PasswordValue);
+    public static InputType Text => new(TextValue);
     
     private const string PasswordValue = "password";
     private const string TextValue = "text";
-    private static string[] ValidValues => [ PasswordValue, TextValue ];
+    private readonly string _value;
 
-    private InputType(string value) => Value = HandleValue(value);
-
-    private static InputType Parse(string value) => new(value);
+    private InputType(string value) => _value = value;
     
-    public static explicit operator InputType(string value) => new(value);
     public static explicit operator string(InputType id) => id.ToString();
     
-    public override string ToString() => Value;
-
-    private static string HandleValue(string value)
-    {
-        return ValidValues.Contains(value, StringComparer.InvariantCultureIgnoreCase)
-            ? value
-            : throw new ArgumentOutOfRangeException(nameof(value));
-    }
+    public override string ToString() => _value;
 }

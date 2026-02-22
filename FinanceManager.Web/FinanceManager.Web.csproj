@@ -51,26 +51,13 @@
     </ItemGroup>
 
     <Target Name="CompileSass" BeforeTargets="BeforeBuild">
-        <Message Importance="high" Text="SASS: Iniciando compilação de todos os arquivos SCSS..." />
+        <Exec Command="find . -name '*.razor.css' -type f -delete" />
 
-        <Exec Command="dart-sass .:./ --load-path=Shared/Styles --style=compressed --no-source-map" />
+        <Exec Command="dart-sass .:. --load-path=Shared/Styles --style=compressed --no-source-map" />
 
         <Copy SourceFiles="Shared/Styles/app.css" DestinationFolder="wwwroot/css" SkipUnchangedFiles="true" />
 
-        <Delete Files="Shared/Styles/app.css" />
-
-        <Message Importance="high" Text="SASS: Compilação concluída." />
-    </Target>
-
-    <Target Name="CleanGeneratedCss" AfterTargets="Build">
-        <ItemGroup>
-            <FilesToClean Include="**/*.razor.css" />
-            <FilesToClean Include="**/*.css.map" />
-        </ItemGroup>
-
-        <Delete Files="@(FilesToClean)" />
-        
-        <Message Importance="high" Text="SASS: Limpeza de arquivos temporários (.css e .map) concluída." />
+        <Message Importance="high" Text="SASS: Compilação e limpeza concluídas com sucesso." />
     </Target>
     
 </Project>

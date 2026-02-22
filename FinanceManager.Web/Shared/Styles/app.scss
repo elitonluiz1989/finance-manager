@@ -1,7 +1,7 @@
-@import "bootstrap/bootstrap";
+@use "bootstrap/bootstrap";
 
-@import "variables";
-@import "functions";
+@use "variables" as vars;
+@use "functions" as funcs;
 
 html, body {
   height: 100%;
@@ -10,12 +10,20 @@ html, body {
 body {
   margin: 0;
   padding: 0;
-  background-color: color_theme("primary");
+  background-color: funcs.color_theme("primary");
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+%page-title-color {
+  color: funcs.color_theme("secondary");
+}
+
 .page-title {
-  color: color_theme("secondary");
+  @extend %page-title-color;
+  
+  &:hover {
+    @extend %page-title-color;
+  }
   
   &:focus, &:active, &:focus-visible {
     outline: none !important;

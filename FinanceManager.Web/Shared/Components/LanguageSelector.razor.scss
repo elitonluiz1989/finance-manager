@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables" as vars;
 
 .language-selector {
   &-toggle::after {
@@ -8,6 +8,6 @@
   &-menu {
     min-width: fit-content;
     right: 0;
-    background-color: darken($primary, 2%);
+    background-color: darken(vars.$primary, 2%);
   }
 }

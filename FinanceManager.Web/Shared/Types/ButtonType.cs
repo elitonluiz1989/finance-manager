@@ -1,28 +1,17 @@
 namespace FinanceManager.Web.Shared.Types;
 
-public readonly record struct ButtonType
+public record ButtonType
 {
-    public static ButtonType Button => Parse(ButtonValue);
-    public static ButtonType Submit => Parse(BubmitValue);
-    public string Value { get; }
+    public static ButtonType Button => new(ButtonValue);
+    public static ButtonType Submit => new(BubmitValue);
     
     private const string ButtonValue = "button";
     private const string BubmitValue = "submit";
-    private static string[] ValidValues => [ ButtonValue, BubmitValue ];
+    private readonly string _value;
 
-    private ButtonType(string value) => Value = HandleValue(value);
-
-    private static ButtonType Parse(string value) => new(value);
+    private ButtonType(string value) => _value = value;
     
-    public static explicit operator ButtonType(string value) => new(value);
-    public static explicit operator string(ButtonType id) => id.ToString();
+    public static explicit operator string(ButtonType value) => value.ToString();
     
-    public override string ToString() => Value;
-
-    private static string HandleValue(string value)
-    {
-        return ValidValues.Contains(value, StringComparer.InvariantCultureIgnoreCase)
-            ? value
-            : throw new ArgumentOutOfRangeException(nameof(value));
-    }
+    public override string ToString() => _value;
 }
