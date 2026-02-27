@@ -45,7 +45,11 @@ public static class ServiceCollectionExtensions
             services.ConfigureHttpJsonOptions(options =>  
                 options.SerializerOptions.TypeInfoResolverChain.Insert(0, UsersJsonContext.Default)
             );
-            services.AddAuthentication(IdentityConstants.BearerScheme)
+            services.AddAuthentication(options => 
+                {
+                    options.DefaultAuthenticateScheme = IdentityConstants.BearerScheme;
+                    options.DefaultChallengeScheme = IdentityConstants.BearerScheme;
+                })
                 .AddBearerToken(IdentityConstants.BearerScheme);
             services.AddAuthorizationBuilder();
             services.AddIdentityCore<IdentityUser>()

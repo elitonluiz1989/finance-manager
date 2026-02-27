@@ -11,36 +11,36 @@ public static class AuthEndpoints
     {
         var group = builder.MapGroup("auth").WithTags("Auth");
 
-        group.MapPost("/register", UsersEndpoints.CreateUserRoute);
+        group.MapPost("/register", UsersEndpoints.CreateEndpoint);
+        group.MapPost("/login", LoginEndpoint);
+        group.MapPost("/refresh", RefreshEndpoint);
+    }
+    
+    private static async Task<IResult> LoginEndpoint([FromBody] LoginRequest login, SignInManager<IdentityUser> manager)
+    {
+        var user = await manager.UserManager.FindByEmailAsync(login.Email);
 
-        group.MapPost("/login", async (LoginRequest login, SignInManager<IdentityUser> manager) =>
-        {
-            var user = await manager.UserManager.FindByEmailAsync(login.Email);
+        if (user is null) return Results.Unauthorized();
 
-            if (user is null) return Results.Unauthorized();
+        var result = await manager.CheckPasswordSignInAsync(
+            user,
+            login.Password,
+            lockoutOnFailure: false
+        );
 
-            var result = await manager.CheckPasswordSignInAsync(
-                user,
-                login.Password,
-                lockoutOnFailure: false
-            );
+        if (!result.Succeeded) return Results.Unauthorized();
 
-            if (!result.Succeeded) return Results.Unauthorized();
+        var principal = await manager.CreateUserPrincipalAsync(user);
 
-            var principal = await manager.CreateUserPrincipalAsync(user);
-
-            return Results.SignIn(principal, authenticationScheme: IdentityConstants.BearerScheme);
-        });
-
-        group.MapPost("/refresh", async (
-            [FromBody] RefreshRequest request,
-            [FromServices] IIdentityService service) =>
-        {
-            var result = await service.RefreshTokenAsync(request.RefreshToken);
+        return Results.SignIn(principal, authenticationScheme: IdentityConstants.BearerScheme);
+    }
+    
+    private static async Task<IResult> RefreshEndpoint([FromBody] RefreshRequest request, [FromServices] IIdentityService service)
+    {
+        var result = await service.RefreshTokenAsync(request.RefreshToken);
             
-            return result.IsSuccess
-                ? Results.SignIn(result.Value!, authenticationScheme: IdentityConstants.BearerScheme)
-                : Results.Unauthorized();
-        });
+        return result.IsSuccess
+            ? Results.SignIn(result.Value!, authenticationScheme: IdentityConstants.BearerScheme)
+            : Results.Unauthorized();
     }
 }
