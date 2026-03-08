@@ -1,4 +1,6 @@
 using FinanceManager.Application.Shared;
+using FinanceManager.Application.Shared.Extensions;
+using FinanceManager.Application.Shared.Handlers;
 using FinanceManager.Application.Users.Shared;
 using FinanceManager.Domain.Shared.Interfaces;
 using FinanceManager.Domain.Shared.Results;
@@ -6,6 +8,8 @@ using FinanceManager.Domain.Users;
 using Microsoft.AspNetCore.Identity;
 
 namespace FinanceManager.Application.Users.Create;
+
+public interface ICreateUserHandler : ICommandHandler<CreateUserCommand, UserResponse>;
 
 public sealed class CreateUserHandler(
     ICreateUserValidator validator,

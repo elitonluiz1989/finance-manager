@@ -6,6 +6,11 @@ public interface IRepository<TEntity, TId>
     where TEntity : Entity<TId>
     where TId: struct
 {
+    Task<TProjection[]> GetAllAsync<TProjection>(
+        Expression<Func<TEntity, TProjection>> projection,
+        Expression<Func<TEntity, bool>>? predicate,
+        CancellationToken cancellationToken = default
+    );
     Task<TProjection?> FindAsync<TProjection>(
         Expression<Func<TEntity, bool>> predicate,
         Expression<Func<TEntity, TProjection>> projection,

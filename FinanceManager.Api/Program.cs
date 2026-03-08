@@ -32,6 +32,7 @@ app.UseRequestLocalization();
 app.MapInfoEndpoints();
 app.MapHealthChecks("/health");
 app.MapAuthEndpoints();
+app.MapAccountsEndpoints();
 app.MapUsersEndpoints();
 app.MapOpenApi();
 

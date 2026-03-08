@@ -11,6 +11,17 @@ public abstract class Repository<TEntity, TId>(ApplicationDbContext context) : I
     where TId: struct
 {
     private DbSet<TEntity> DbSet => context.Set<TEntity>();
+
+    public async Task<TProjection[]> GetAllAsync<TProjection>(
+        Expression<Func<TEntity, TProjection>> projection,
+        Expression<Func<TEntity, bool>>? predicate,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var query = predicate is not null ? DbSet.Where(predicate) : DbSet;
+        
+        return await query.Select(projection).ToArrayAsync(cancellationToken);
+    }
     
     public async Task<TProjection?> FindAsync<TProjection>(
         Expression<Func<TEntity, bool>> predicate,

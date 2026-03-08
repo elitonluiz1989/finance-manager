@@ -1,3 +1,4 @@
+using FinanceManager.Application.Shared.Extensions;
 using FinanceManager.Domain.Shared.Results;
 using FluentValidation;
 

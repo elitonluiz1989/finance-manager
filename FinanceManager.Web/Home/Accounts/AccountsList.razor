@@ -1,0 +1,49 @@
+@using FinanceManager.Application.Accounts.Shared
+@using FinanceManager.Web.Home.Accounts.Form
+@using FinanceManager.Web.Shared.Components.Icon
+@using FinanceManager.Web.Shared.Components.Modal
+@using FinanceManager.Web.Shared.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResources> SharedStrings
+@inject IAccountsService Service
+
+<div class="row">
+    <div class="col-12 d-flex justify-content-end">
+        <button class="btn btn-sm btn-primary px-2" @onclick="OnAddAccount">
+            <Icon Type="IconType.Plus"/>
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    @if (_accounts.Length == 0)
+    {
+        <p class="text-white text-center">@SharedStrings["NoRecords"]</p>
+    }
+    else
+    {
+        <div class="list-group list-group-flush">
+            @foreach (var account in _accounts)
+            {
+                <AccountsListItem Account="account"/>
+            }
+        </div>
+    }
+</div>
+
+<AccountsForm Show="_showForm" OnClose="OnCloseModal" />
+
+@code {
+    private AccountResponse[] _accounts = [];
+    private bool _showForm;
+
+    protected override async Task OnInitializedAsync() => await LoadAccounts();
+
+    private void OnAddAccount() => _showForm = true;
+    private void OnCloseModal() => _showForm = false;
+
+    private async Task LoadAccounts()
+    {
+        _accounts = await Service.GetAllAsync();
+    }
+}

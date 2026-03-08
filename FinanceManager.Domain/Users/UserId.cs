@@ -10,6 +10,7 @@ public readonly record struct UserId : IEntityIdentifier<UserId>
     
     public static UserId New() => new(Guid.NewGuid());
     public static UserId Parse(Guid value) => new(value);
+    public static UserId Parse(string value) => new(Guid.Parse(value));
     
     public static explicit operator UserId(Guid value) => new(value);
     public static explicit operator Guid(UserId id) => id.Value;

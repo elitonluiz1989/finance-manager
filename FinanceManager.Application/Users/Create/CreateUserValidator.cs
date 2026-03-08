@@ -6,6 +6,8 @@ using FluentValidation;
 
 namespace FinanceManager.Application.Users.Create;
 
+public interface ICreateUserValidator : IValidator<CreateUserCommand, UserResponse>;
+
 public sealed class CreateUserValidator : Validator<CreateUserCommand, UserResponse>, ICreateUserValidator
 {   
     public CreateUserValidator(UserLocalizer localizer, SharedLocalizer sharedLocation)

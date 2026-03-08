@@ -26,4 +26,19 @@
     <data name="AuthenticationFailed" xml:space="preserve">
         <value>Authentication failed. Invalid username or password.</value>
     </data>
+    <data name="NoRecords" xml:space="preserve">
+        <value>No records</value>
+    </data>
+    <data name="FieldRequired" xml:space="preserve">
+        <value>Field is required</value>
+    </data>
+    <data name="Name" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="Type" xml:space="preserve">
+        <value>Type</value>
+    </data>
+    <data name="User" xml:space="preserve">
+        <value>User</value>
+    </data>
 </root>

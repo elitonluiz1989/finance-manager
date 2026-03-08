@@ -1,0 +1,60 @@
+@using FinanceManager.Application.Shared.Resources
+@using FinanceManager.Domain.Accounts
+@using FinanceManager.Domain.Users
+@using WebEnumExtensions = FinanceManager.Web.Shared.Extensions
+@using FinanceManager.Web.Shared.Components.FormField
+@using FinanceManager.Web.Shared.Components.Modal
+@using FinanceManager.Web.Shared.Services
+@using Microsoft.Extensions.Localization
+@inject IUsersService UsersService
+@inject IAccountsService Service
+@inject IStringLocalizer<SharedResources> SharedStrings
+@inject IStringLocalizer<HomeResources> Strings
+
+<Modal Show="Show" Title="@Strings["AddAccount"]" OnClose="Close">
+    <EditForm Model="_model" OnValidSubmit="Submit">
+        <DataAnnotationsValidator />
+        
+        <FormInput Label="@SharedStrings["Name"]" @bind-Value="_model.Name" />
+        
+        <FormSelect TValue="AccountType?" Label="@SharedStrings["Type"]" Options="_types" @bind-Value="_model.Type" />
+        
+        <FormSelect TValue="UserId?" Label="@SharedStrings["Users"]" Options="_users" @bind-Value="_model.UserId" ConvertValue="value => string.IsNullOrWhiteSpace(value) ? null : (UserId)value" />
+    </EditForm>
+</Modal>
+
+@code {
+    [Parameter]
+    public required bool Show { get; set; }
+    [Parameter]
+    public required EventCallback<bool> OnClose { get; set; }
+
+    private readonly AccountModel _model = new();
+    private readonly FormSelectOption<AccountType?>[] _types = WebEnumExtensions.EnumExtensions.ToSelectOptions<AccountType>();
+    private FormSelectOption<UserId?>[] _users = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUsers();
+    }
+
+    private async Task GetUsers()
+    {
+        var users = await UsersService.GetAllAsync();
+        
+        if (users.Length == 0)
+            return;
+        
+        _users = users.Select(u => new FormSelectOption<UserId?>(u.Name, u.Id)).ToArray();
+    }
+
+    private async Task Submit()
+    {
+        var result = await Service.CreateAsync(_model);
+        
+        await Close(result.IsSuccess);
+    }
+    
+    private async Task Close(bool isSuccess) => await OnClose.InvokeAsync(isSuccess);
+    private async Task Close() => await Close(false);
+}

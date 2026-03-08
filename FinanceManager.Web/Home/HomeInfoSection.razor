@@ -1,0 +1,22 @@
+<div class="section px-2">
+    <button class="w-100 bg-transparent border-0 py-2" type="button" @onclick="ToggleContent">
+        <h3 class="text-center text-white mb-0">@Title</h3>
+    </button>
+    
+    <div class="wrapper@(_toggleContent ? " opened" : "")">
+        <div class="content w-100 pt-2 border-top">
+            @ChildContent
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public required string Title { get; set; }
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
+    
+    private bool _toggleContent;
+
+    private void ToggleContent() => _toggleContent = !_toggleContent;
+}

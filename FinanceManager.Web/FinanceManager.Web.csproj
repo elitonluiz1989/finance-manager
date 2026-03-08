@@ -32,10 +32,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>LoginResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\FinanceManager.Application\FinanceManager.Application.csproj" />
+      <EmbeddedResource Update="Home\HomeResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -48,6 +48,15 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>LoginResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Home\HomeResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>HomeResources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FinanceManager.Application\FinanceManager.Application.csproj" />
     </ItemGroup>
 
     <Target Name="CompileSass" BeforeTargets="BeforeBuild">

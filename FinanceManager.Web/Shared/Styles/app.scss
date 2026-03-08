@@ -122,3 +122,11 @@ code {
 .form-floating>.form-control:focus::placeholder {
   text-align: start
 }
+
+.form-field {
+  border-color: funcs.color-theme("primary");
+}
+
+.form-field-label {
+  color: funcs.color-theme("primary");
+}

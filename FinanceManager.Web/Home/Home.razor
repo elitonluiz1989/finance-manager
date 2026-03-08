@@ -1,0 +1,18 @@
+﻿@page "/"
+@using FinanceManager.Web.Home.Accounts
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
+@attribute [Authorize]
+@inject IStringLocalizer<HomeResources> Strings
+
+<div class="container">
+    <div class="row">
+        <div class="info col-12 col-lg-4 py-3">
+            <HomeInfoSection Title="@Strings["Accounts"]">
+                <AccountsList></AccountsList>
+            </HomeInfoSection>
+        </div>
+
+        <div class="col-12 col-lg-8"></div>
+    </div>
+</div>

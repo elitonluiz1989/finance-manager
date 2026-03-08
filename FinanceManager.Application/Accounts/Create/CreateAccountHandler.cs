@@ -4,8 +4,11 @@ using FinanceManager.Domain.Accounts;
 
 namespace FinanceManager.Application.Accounts.Create;
 
+public interface ICreateAccountHandler : ICreateHandler<CreateAccountCommand, AccountResponse>;
+
 public class CreateAccountHandler(ICreateAccountValidator validator, IAccountRepository repository) :
-    CreateHandler<Account, AccountId, ICreateAccountValidator, IAccountRepository, CreateAccountCommand, AccountResponse>(validator, repository), ICreateAccountHandler
+    CreateHandler<Account, AccountId, ICreateAccountValidator, IAccountRepository, CreateAccountCommand, AccountResponse>(validator, repository),
+    ICreateAccountHandler
 {
     protected override Account MapToEntity(CreateAccountCommand request) => request.ToAccount();
 

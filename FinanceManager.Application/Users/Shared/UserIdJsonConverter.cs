@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using FinanceManager.Domain.Users;
 
-namespace FinanceManager.Infrastructure.Converters.Users;
+namespace FinanceManager.Application.Users.Shared;
 
 public class UserIdJsonConverter : JsonConverter<UserId>
 {

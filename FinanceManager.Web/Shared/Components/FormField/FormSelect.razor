@@ -1,0 +1,36 @@
+@using System.Linq.Expressions
+@typeparam TValue
+
+<FormField TValue="TValue" Label="@Label" LabelAdditionalClasses="@LabelAdditionalClasses" ValueExpression="ValueExpression">
+    <InputSelect class="form-field form-select form-control-lg" @bind-Value="SelectedValue">
+        <option value="">...</option>
+        
+        @foreach (var option in Options)
+        {
+            <option value="@option.Value?.ToString()">@option.Label</option>
+        }
+    </InputSelect>
+</FormField>
+
+@code {
+    [Parameter]
+    public string? Label { get; set; }
+    [Parameter]
+    public string? LabelAdditionalClasses { get; set; } = "form-field-label";
+    [Parameter]
+    public TValue? Value { get; set; }
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+    [Parameter]
+    public Expression<Func<TValue>>? ValueExpression { get; set; }
+    [Parameter]
+    public FormSelectOption<TValue>[] Options { get; set; } = [];
+    [Parameter]
+    public required Func<string?, TValue?> ConvertValue { get; set; }
+
+    private string? SelectedValue
+    {
+        get => Value?.ToString();
+        set => Value = ConvertValue.Invoke(value);
+    }
+}

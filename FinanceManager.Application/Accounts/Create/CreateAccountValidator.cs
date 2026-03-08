@@ -6,6 +6,8 @@ using FluentValidation;
 
 namespace FinanceManager.Application.Accounts.Create;
 
+public interface ICreateAccountValidator : IValidator<CreateAccountCommand, AccountResponse>;
+
 public class CreateAccountValidator : Validator<CreateAccountCommand, AccountResponse>, ICreateAccountValidator
 {
     public CreateAccountValidator(SharedLocalizer sharedLocalizer)

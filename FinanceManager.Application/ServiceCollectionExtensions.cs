@@ -1,7 +1,9 @@
 using FinanceManager.Application.Accounts.Create;
+using FinanceManager.Application.Accounts.GetAll;
 using FinanceManager.Application.Shared.Services;
 using FinanceManager.Application.Users.Create;
 using FinanceManager.Application.Users.Get;
+using FinanceManager.Application.Users.GetAll;
 using FinanceManager.Application.Users.Shared;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +22,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<ICreateAccountHandler, CreateAccountHandler>();
         services.AddScoped<ICreateAccountValidator, CreateAccountValidator>();
+        services.AddScoped<IGetAllAccountsHandler, GetAllAccountsHandler>();
     }
 
     private static void AddUsers(IServiceCollection services)
@@ -28,5 +31,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ICreateUserHandler, CreateUserHandler>();
         services.AddScoped<ICreateUserValidator, CreateUserValidator>();
         services.AddScoped<IGetUserHandler, GetUserHandler>();
+        services.AddScoped<IGetAllUserHandler, GetAllUserHandler>();
     }
 }

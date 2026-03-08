@@ -1,3 +1,7 @@
+using System.Text.Json;
+using FinanceManager.Application.Accounts.Shared;
+using FinanceManager.Application.Users.Shared;
+using FinanceManager.Web.Home.Accounts;
 using FinanceManager.Web.Login;
 using FinanceManager.Web.Logout;
 using FinanceManager.Web.Shared.Components.Notification;
@@ -23,6 +27,8 @@ public static class ServiceCollectionExtensions
             services.AddScoped<JwtInterceptor>();
             services.AddScoped<AppAuthenticationStateProvider>();
             services.AddScoped<AuthenticationStateProvider>(provider => provider.GetService<AppAuthenticationStateProvider>()!);
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IAccountsService, AccountsService>();
         }
 
         public void AddApiClient(IConfiguration configuration)
@@ -30,13 +36,12 @@ public static class ServiceCollectionExtensions
             var apiSettings = configuration.GetSection(SettingsConst.Api);
             var apiClientName = apiSettings.GetValue<string>(SettingsConst.ApiClientName) ?? string.Empty;
             var apiAddress = apiSettings.GetValue<string>(SettingsConst.ApiAddress) ?? string.Empty;
-            var clientUri = new Uri(apiAddress);
+            
+            Console.WriteLine(apiAddress);
 
-            services.AddHttpClient(apiClientName, client => client.BaseAddress = clientUri)
+            services.AddHttpClient<ApiClient>(apiClientName, client => client.BaseAddress = new Uri(apiAddress))
                 .AddHttpMessageHandler<ExceptionInterceptor>()
                 .AddHttpMessageHandler<JwtInterceptor>();
-        
-            services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient(apiClientName));
         }
     }
 }

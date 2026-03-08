@@ -2,7 +2,7 @@ using FinanceManager.Domain.Shared.Errors;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 
-namespace FinanceManager.Application.Shared;
+namespace FinanceManager.Application.Shared.Extensions;
 
 public static class ErrorExtensions
 {

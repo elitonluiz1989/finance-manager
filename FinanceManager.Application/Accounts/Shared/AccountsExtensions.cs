@@ -9,5 +9,5 @@ public static class AccountsExtensions
         Account.CreateAccount(command.Name, command.Type, command.UserId);
 
     public static AccountResponse ToAccountResponse(this Account entity) =>
-        new(entity.Id, entity.Name, entity.Type, entity.UserId);
+        new(entity.Id, entity.Name, entity.Type, 0);
 }

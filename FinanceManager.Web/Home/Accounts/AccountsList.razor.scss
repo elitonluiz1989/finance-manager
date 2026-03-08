@@ -1,0 +1,5 @@
+@use "functions" as funcs;
+
+.accounts-header {
+  border-color: funcs.color-theme('primary') !important;
+}

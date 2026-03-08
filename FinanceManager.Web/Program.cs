@@ -17,5 +17,4 @@ builder.Services.AddApiClient(builder.Configuration);
 var host = builder.Build();
 
 await host.Services.LocalizationHandler();
-
 await host.RunAsync();

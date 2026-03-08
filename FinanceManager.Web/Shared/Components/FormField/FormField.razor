@@ -1,0 +1,26 @@
+@using System.Linq.Expressions
+@typeparam TValue
+
+<div class="mb-3">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label class="form-label fw-semibold @LabelAdditionalClasses">@Label</label>
+    }
+    
+    @ChildContent
+    
+    <ValidationMessage For="@ValueExpression" class="text-danger small" />
+</div>
+
+@code {
+    [Parameter]
+    public FormFieldType Type { get; set; } = FormFieldType.Text;
+    [Parameter]
+    public string? Label { get; set; }
+    [Parameter]
+    public string? LabelAdditionalClasses { get; set; }
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public Expression<Func<TValue?>>? ValueExpression { get; set; }
+}

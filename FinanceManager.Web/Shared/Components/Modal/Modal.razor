@@ -1,0 +1,45 @@
+@using FinanceManager.Web.Shared.Components.Icon
+<div class="modal fade@(Show ? " d-block show": "")" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered @Size">
+        <div class="modal-content">
+            @if (!string.IsNullOrWhiteSpace(Title))
+            {
+                <div class="modal-header d-flex">
+                    <h5 class="modal-title flex-fill">@Title</h5>
+
+                    <button class="modal-close d-flex p-1 bg-transparent border-0" type="button" @onclick="Close">
+                        <Icon Type="IconType.Times" />
+                    </button>
+                </div>
+            }
+
+            <div class="modal-body">
+                @ChildContent
+            </div>
+            
+            @if (FooterContent is not null)
+            {
+                <div class="modal-footer border-secondary">
+                    @FooterContent
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool Show { get; set; }
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+    [Parameter]
+    public ModalSize Size { get; set; } = ModalSize.Default;
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? FooterContent { get; set; }
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    private async Task Close() => await OnClose.InvokeAsync();
+}

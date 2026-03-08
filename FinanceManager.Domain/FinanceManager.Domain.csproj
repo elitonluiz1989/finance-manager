@@ -8,4 +8,19 @@
         <RootNamespace>FinanceManager.Domain</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <EmbeddedResource Update="Accounts\AccountsResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AccountsResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Accounts\AccountsResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AccountsResources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

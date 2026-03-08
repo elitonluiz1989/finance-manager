@@ -2,6 +2,7 @@
 @namespace FinanceManager.Web.Login
 @using FinanceManager.Application.Auth
 @using FinanceManager.Web.Shared.Components
+@using FinanceManager.Web.Shared.Components.FormField
 @using FinanceManager.Web.Shared.Layout
 @using FinanceManager.Web.Shared.Resources
 @using FinanceManager.Web.Shared.Types
@@ -26,11 +27,24 @@
             <EditForm Model="@_model" OnValidSubmit="HandleLogin">
                 <DataAnnotationsValidator/>
 
-                <FormField Type="InputType.Text" Label="@Strings["Email"]" LabelStyles="text-white" Placeholder="@Strings["EmailPlaceholder"]" @bind-Value="_model.Email"/>
+                <FormInput
+                    Label="@Strings["Email"]"
+                    LabelAdditionalClasses="text-white"
+                    Placeholder="@Strings["EmailPlaceholder"]"
+                    @bind-Value="_model.Email" />
 
-                <FormField Type="InputType.Password" Label="@Strings["Password"]" LabelStyles="text-white" Placeholder="*******" @bind-Value="_model.Password"/>
+                <FormInput
+                    Type="FormFieldType.Password"
+                    Label="@Strings["Password"]"
+                    LabelAdditionalClasses="text-white"
+                    Placeholder="*******"
+                    @bind-Value="_model.Password"/>
 
-                <ButtonSpinner Type="ButtonType.Submit" IsProcessing="_isProcessing" DefaultText="@Strings["Login"]" ProcessingText="@Strings["Authenticating"]"/>
+                <ButtonSpinner
+                    Type="ButtonType.Submit"
+                    IsProcessing="_isProcessing"
+                    DefaultText="@Strings["Login"]"
+                    ProcessingText="@Strings["Authenticating"]"/>
             </EditForm>
         </div>
 

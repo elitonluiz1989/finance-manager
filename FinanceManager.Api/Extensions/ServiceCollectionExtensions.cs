@@ -1,6 +1,8 @@
 using System.Globalization;
 using FinanceManager.Api.JsonContexts;
 using FinanceManager.Api.Services;
+using FinanceManager.Application.Accounts.Shared;
+using FinanceManager.Application.Users.Shared;
 using FinanceManager.Infrastructure.Contexts;
 using FinanceManager.Infrastructure.Converters.Accounts;
 using FinanceManager.Infrastructure.Converters.Users;
